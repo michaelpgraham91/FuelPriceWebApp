@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+table, th, td {
+    border: 1px solid black;
+    background-color: grey;
+}
+</style>
+<head>
+  <link rel="stylesheet" type="text/css" href="style.css"> 
+  <link rel="stylesheet" type="text/css" href="font-awesome.min.css"> 
+  <link rel="stylesheet" type="text/css" href="noscript.css"> 
+<title>Final Project</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+
+<body>
+
+<h2>Final Project</h2>
+
+<header>
+  <h2>Quote History</h2>
+</header>
+
+<section>
+  <nav>
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="clientInformation.ejs">Client Information</a></li>
+      <li><a href="requestAQuote.ejs">Request A Quote</a></li>
+      <li><a href="quotehistory.ejs">Quote History</a></li>
+      <li><a href="clientList.ejs">Client List</a></li>
+    </ul>
+  </nav>
+  
+  <article>
+    <h1>Home Page</h1>
+    <% if (fuelquote.length > 0) {%>
+            <table class="table table-hover table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Quote ID</th>
+                        <th scope="col">Client ID</th>
+                        <th scope="col">Client Name</th>
+                        <th scope="col">Gallons Requested</th>
+                        <th scope="col">Request Date</th>
+                        <th scope="col">Delivery Date</th>
+                        <th scope="col">Delivery Address</th>
+                        <th scope="col">Delivery City</th>
+                        <th scope="col">Delivery State</th>
+                        <th scope="col">Delivery Zip Code</th>
+                        <th scope="col">Delivery Contact Name</th>
+                        <th scope="col">Delivery Contact Phone</th>
+                        <th scope="col">Delivery Contact Email</th>
+                        <th scope="col">Suggested Price</th>
+                        <th scope="col">Total Amount Due </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% fuelquote.forEach((quote, index) => { %>
+                        <tr>
+                            <th scope="row"><%= quote.quoteId %></th>
+                            <td><%= quote.clientId %></td>
+                            <td><%= quote.fullName %></td>
+                            <td><%= quote.gallonsRequested  %></td>
+                            <td><%= quote.requestDate  %></td>
+                            <td><%= quote.deliveryDate  %></td>
+                            <td><%= quote.deliveryAddress  %></td>
+                            <td><%= quote.deliveryCity  %></td>
+                            <td><%= quote.deliveryState  %></td>
+                            <td><%= quote.deliveryZipCode  %></td>
+                            <td><%= quote.deliveryContactName  %></td>
+                            <td><%= quote.deliveryContactPhone  %></td>
+                            <td><%= quote.deliveryContactEmail  %></td>
+                            <td><%= quote.suggestedPrice   %></td>
+                            <td><%= quote.totalAmountDue   %></td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        <% } else { %>
+            <p class="text-center">No quotes found. Go <a href="/request_quote" >here</a> to request a quote.</p>
+            <% } %>
+
+    
+  </article>
+</section>
+
+<footer>
+  <p>Created by William  Hubert and Michael Graham</p>
+</footer>
+
+</body>
+
+</html>
+<style>
+* {
+  box-sizing: border-box;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-kerning: auto;
+}
+html {
+  line-height: 1.4;
+  font-weight: 400;
+  font-family: sans-serif;
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  background: lightcoral;
+  margin: 0;
+  font-family: sans-serif
+}
+header {
+  color: white;
+  padding: 1em;
+  background: indianred;
+  text-align: center;
+}
+header h1 {
+  margin: 0;
+}
+header nav {
+  display: block;
+  overflow: hidden;
+}
+header nav a {
+  display: inline-block;
+  padding: .75em;
+  color: white;
+  font-weight: 600;
+  text-transform: lowercase;
+  width: 33.33%;
+  float: left;
+}
+a {
+  outline: none;
+  text-decoration: none;
+}
+footer {
+  color: white;
+  padding: 2em;
+  text-align: center;
+}
+h1, h2, h3, h4, h5, h6 {
+  margin: 0 0 .5em 0;
+  letter-spacing: -.02em;
+}
+h2 {
+  font-size: 20pt;
+  font-weight: 400;
+  color: indianred;
+}
+p {
+  margin: 0;
+}
+p + p {
+  margin-top: .75em;
+}
+div {
+  padding: 1.5em;
+  background: white;
+}
+div h3 {
+  color: indianred;
+}
+div p {
+  color: lightcoral;
+}
+main {
+  background: lavenderblush;
+  padding-bottom: 1.5em;
+}
+main section,
+main aside {
+  padding: 1.5em;
+  padding-bottom: 0;
+}
+main article {
+  padding: 1.5em;
+  background: white;
+  border-radius: 3px;
+}
+main article p {
+  color: indianred;
+  line-height: 1.5;
+}
+.capsule {
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px solid lightpink;
+}
+.capsule  + .capsule {
+  border-top: none;
+}
+.capsule:first-of-type {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+.capsule:last-of-type {
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+@media (min-width: 800px) {
+  header,
+  main {
+    overflow: hidden;
+  }
+  main section,
+  main aside {
+    float: left;
+    width: 40%;
+  }
+  main section {
+    width: 60%;
+    padding-right: 0;
+  }
+  header h1 {
+    float: left;
+  }
+  header nav {
+    float: right;
+  }
+}
+</style>

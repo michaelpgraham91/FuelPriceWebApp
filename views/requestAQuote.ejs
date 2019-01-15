@@ -1,0 +1,422 @@
+<html lang="en">
+<head>
+  <link rel="stylesheet" type="text/css" href="style.css"> 
+  <link rel="stylesheet" type="text/css" href="font-awesome.min.css"> 
+  <link rel="stylesheet" type="text/css" href="noscript.css"> 
+<title>Final Project</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+<body>
+
+<h2>Final Project</h2>
+
+<header>
+  <h2>Request a Quote</h2>
+</header>
+
+<section>
+  <nav>
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="clientInformation.ejs">Client Information</a></li>
+      <li><a href="requestAQuote.ejs">Request A Quote</a></li>
+      <li><a href="quoteHistory.ejs">Quote History</a></li>
+      <li><a href="clientList.ejs">Client List</a></li>
+    </ul>
+  </nav>
+  
+  <article>
+    <h1>Home Page</h1>
+    <table>
+      <form id="quote_form" method="post">
+        <tr>
+<!--           <td>Client ID:</td>
+          <td><input name="clientId" type="text" oninput="boxCheck(); findId()"></td> -->
+          <td>Client ID:</td>
+          <td><select name="clientId" oninput="boxCheck(); findId()" required>
+            <option value="None">None</option>
+            <%if (fuelquote.length > 0) { %>
+            <% fuelquote.forEach((quote, index) => { %>
+            <option value="<%= quote.activeClient %>"><%= quote.clientName %></option>
+            <% }) %>
+            <% } %>
+          </select>
+        </tr>
+        <tr>
+          <td>Gallons Requested:</td>
+          <td><input name="num_gallons" type="text" oninput="boxCheck()"></td>
+        </tr>
+        <tr>
+          <td>Request Date:</td>
+          <td><input name="request_date" type="date" oninput="boxCheck()"></td>
+        </tr>
+        <tr>
+          <td>Delivery Date:</td>
+          <td><input name="delivery_date" type="date" oninput="boxCheck()"></td>
+        </tr>
+        <tr>
+          <td>Delivery Address:</td>
+          <td><input name="delivery_location" type="text" oninput="boxCheck()"></td>
+        </tr>
+          <td>City: </td>
+          <td><input type='text' name='city' oninput="boxCheck()"></td>
+        </tr><br>
+        <tr>
+          <td>State: </td>
+          <td><select name="state" required>
+            <option value="AL">Alabama</option>
+            <option value="AK">Alaska</option>
+            <option value="AZ">Arizona</option>
+            <option value="AR">Arkansas</option>
+            <option value="CA">California</option>
+            <option value="CO">Colorado</option>
+            <option value="CT">Connecticut</option>
+            <option value="DE">Delaware</option>
+            <option value="DC">District Of Columbia</option>
+            <option value="FL">Florida</option>
+            <option value="GA">Georgia</option>
+            <option value="HI">Hawaii</option>
+            <option value="ID">Idaho</option>
+            <option value="IL">Illinois</option>
+            <option value="IN">Indiana</option>
+            <option value="IA">Iowa</option>
+            <option value="KS">Kansas</option>
+            <option value="KY">Kentucky</option>
+            <option value="LA">Louisiana</option>
+            <option value="ME">Maine</option>
+            <option value="MD">Maryland</option>
+            <option value="MA">Massachusetts</option>
+            <option value="MI">Michigan</option>
+            <option value="MN">Minnesota</option>
+            <option value="MS">Mississippi</option>
+            <option value="MO">Missouri</option>
+            <option value="MT">Montana</option>
+            <option value="NE">Nebraska</option>
+            <option value="NV">Nevada</option>
+            <option value="NH">New Hampshire</option>
+            <option value="NJ">New Jersey</option>
+            <option value="NM">New Mexico</option>
+            <option value="NY">New York</option>
+            <option value="NC">North Carolina</option>
+            <option value="ND">North Dakota</option>
+            <option value="OH">Ohio</option>
+            <option value="OK">Oklahoma</option>
+            <option value="OR">Oregon</option>
+            <option value="PA">Pennsylvania</option>
+            <option value="RI">Rhode Island</option>
+            <option value="SC">South Carolina</option>
+            <option value="SD">South Dakota</option>
+            <option value="TN">Tennessee</option>
+            <option value="TX" selected>Texas</option>
+            <option value="UT">Utah</option>
+            <option value="VT">Vermont</option>
+            <option value="VA">Virginia</option>
+            <option value="WA">Washington</option>
+            <option value="WV">West Virginia</option>
+            <option value="WI">Wisconsin</option>
+            <option value="WY">Wyoming</option>
+          </select></td>
+        </tr><br>  
+        <tr>
+          <td>Zip Code: </td>
+          <td><input type='text' name='zip' oninput="boxCheck()"></td>
+        </tr><br>     
+        <tr>
+        <tr>
+          <td>Delivery Contact Person Name:</td>
+          <td><input name="delivery_contact_person_name" type="text" oninput="boxCheck()"></td>
+        </tr>
+        <tr>
+          <td>Delivery Contact Person Phone:</td>
+          <td><input name="delivery_contact_person_phone" type="text" oninput="boxCheck()"></td>
+        </tr>
+        <tr>
+          <td>Delivery Contact Person Email:</td>
+          <td><input name="delivery_contact_person_email" type="email" oninput="boxCheck()"></td>
+        </tr>
+          <td><button id='getPrice' tpye="button">Get Price</button></td>
+        <tr>
+          <td>Suggested Price per Gallon:</td>
+          <td><input name="price_per_gallon" readonly type="text" id="pricePerGallon" oninput="getTotal()"></td>
+        </tr>
+        <tr>
+          <td>Total Amount Due:</td>
+          <td><input name="total_amount_due" readonly type="text" id="total"></td>
+        </tr>     
+        <tr>
+          <td><button id='submitQuote' tpye="submit">Submit Quote</button></td>       
+        </tr>
+      </form>
+    </table>
+    <p id="quote-display-area">Display quotes here</p>
+  </article>
+</section>
+
+
+<footer>
+  <p>Created by William Hubert and Michael Graham</p>
+</footer>
+
+</body>
+<script>
+var quoteForm = document.getElementById('quote_form');
+var rateHistoryFactor = 0.03; 
+
+var getPrice = document.getElementById('getPrice');
+getPrice.disabled = true;
+var getTotalButton = document.getElementById('submitQuote');
+getTotalButton.disabled = true;
+
+function boxCheck() {
+  var  quote = {
+    clientId: quoteForm.clientId.value,
+    gallons: quoteForm.num_gallons.value,
+    requestDate: quoteForm.request_date.value,
+    deliveryDate: quoteForm.delivery_date.value,
+    deliveryLocation: quoteForm.delivery_location.value,
+    city: quoteForm.city.value,
+    zip: quoteForm.zip.value,
+    deliveryName: quoteForm.delivery_contact_person_name.value,
+    deliveryPhone: quoteForm.delivery_contact_person_phone.value,
+    deliveryEmail: quoteForm.delivery_contact_person_email.value
+  }
+  console.log("ID: " + quote.clientId);
+  if(quote.clientId != '' && quote.gallons != '' && quote.requestDate != '' && quote.deliveryDate != '' && quote.deliveryLocation != '' && quote.zip != '' && quote.deliveryName != '' && quote.deliveryPhone != '' && quote.deliveryEmail != '' && quote.city != '') {
+      getPrice.disabled = false;
+  }
+  else {
+    getPrice.disabled = true;
+  }
+}
+
+getPrice.addEventListener('click', function(event) {
+  event.preventDefault();
+  var  quote = {
+    clientId: quoteForm.clientId.value,
+    gallons: quoteForm.num_gallons.value,
+    requestDate: quoteForm.request_date.value,
+    deliveryDate: quoteForm.delivery_date.value,
+    deliveryLocation: quoteForm.delivery_location.value,
+    city: quoteForm.city.value,
+    zip: quoteForm.zip.value,
+    state: quoteForm.state.value,
+    deliveryName: quoteForm.delivery_contact_person_name.value,
+    deliveryPhone: quoteForm.delivery_contact_person_phone.value,
+    deliveryEmail: quoteForm.delivery_contact_person_email.value
+  }
+  if(validateQuoteInput(quote) == true) {
+    let locationFactor = 0.02;
+    let gallonFactor = 0.03;
+    let companyProfit = 0.05;
+    let rateFluctuation = 0.04;
+    if(quote.state != "TX") {
+      locationFactor = 0.04;
+    }
+    if(quote.gallons > 1000) {
+      gallonFactor = 0.02;
+    }
+    let tempPrice = (1 + (locationFactor + gallonFactor + companyProfit + rateFluctuation + rateHistoryFactor)) * 2.19;
+    tempPrice = Number(tempPrice.toFixed(2));
+    document.getElementById('pricePerGallon').value = tempPrice;
+    document.getElementById('quote-display-area').innerText = "Location Factor: " + locationFactor + ", gallonFactor: " + gallonFactor + ", companyProfit: " + companyProfit + ", rateHistoryFactor: " + rateHistoryFactor + ", rateFluctuation: " + rateFluctuation;
+   let pricePerGallon = quoteForm.price_per_gallon.value;
+   let total = quote.gallons * pricePerGallon;
+   document.getElementById('total').value = Number(total.toFixed(2));
+   getTotalButton.disabled = false;
+ }
+ else {
+  getTotalButton.disabled = true;
+ }
+})
+
+function findId() {
+  let clientId = quoteForm.clientId.value;
+  let FuelQuotes = []
+  <% fuelquote.forEach((quote, index) => {%>
+    FuelQuotes.push(Number(<%=quote.clientId%>));
+  <%})%>
+  if(FuelQuotes.findIndex(id => id == clientId) >= 0) {
+    rateHistoryFactor = 0.02;
+    console.log("found ID");
+  }
+  else {
+    rateHistoryFactor = 0.03;
+    console.log("ID not found");
+  }
+}
+
+function validateQuoteInput(quote) {
+    var regexName = new RegExp('[^a-zA-Z\\s]');
+    var regexEmail =
+/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    var regexPhone = /^\d{10}$/;
+    var regexZip = /^\d{5}$/;
+    var regexNum = /^[1-9]+[0-9]*$/;
+    if(quote.gallons === '' || quote.deliveryDate === '' ||
+quote.deliveryLocation === '' || quote.deliveryName ===
+'' || quote.deliveryEmail === '' ||
+quote.deliveryPhone === '') {
+      alert("Must fill out all fields");
+      return false;
+    }
+    else if(!regexNum.test(quote.gallons)) {
+      alert("Must enter an integer greater than zero");
+      return false;
+    }
+    else if(regexName.test(quote.deliveryName)){
+      alert("Contact name must only contain letters");
+      return false;
+    }
+    else if(!regexZip.test(quote.zip)) {
+      alert("Please enter a valid zip code (5 digits), you entered: " + quote.zip);
+      return false;
+    }
+    else if(!regexEmail.test(quote.deliveryEmail)) {
+      alert("Please enter a valid email, you entered: " + quote.deliveryEmail);
+      return false;
+    }
+    else if(!regexPhone.test(quote.deliveryPhone)) {
+      alert("Please enter a 10 digit phone, you entered: " + quote.deliveryPhone);
+      return false;
+    }
+    else {
+      return true;
+    }
+}
+
+</script>
+
+</html>
+<style>
+* {
+  box-sizing: border-box;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-kerning: auto;
+}
+html {
+  line-height: 1.4;
+  font-weight: 400;
+  font-family: sans-serif;
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  background: lightcoral;
+  margin: 0;
+  font-family: sans-serif
+}
+header {
+  color: white;
+  padding: 1em;
+  background: indianred;
+  text-align: center;
+}
+header h1 {
+  margin: 0;
+}
+header nav {
+  display: block;
+  overflow: hidden;
+}
+header nav a {
+  display: inline-block;
+  padding: .75em;
+  color: white;
+  font-weight: 600;
+  text-transform: lowercase;
+  width: 33.33%;
+  float: left;
+}
+a {
+  outline: none;
+  text-decoration: none;
+}
+footer {
+  color: white;
+  padding: 2em;
+  text-align: center;
+}
+h1, h2, h3, h4, h5, h6 {
+  margin: 0 0 .5em 0;
+  letter-spacing: -.02em;
+}
+h2 {
+  font-size: 20pt;
+  font-weight: 400;
+  color: indianred;
+}
+p {
+  margin: 0;
+}
+p + p {
+  margin-top: .75em;
+}
+div {
+  padding: 1.5em;
+  background: white;
+}
+div h3 {
+  color: indianred;
+}
+div p {
+  color: lightcoral;
+}
+main {
+  background: lavenderblush;
+  padding-bottom: 1.5em;
+}
+main section,
+main aside {
+  padding: 1.5em;
+  padding-bottom: 0;
+}
+main article {
+  padding: 1.5em;
+  background: white;
+  border-radius: 3px;
+}
+main article p {
+  color: indianred;
+  line-height: 1.5;
+}
+.capsule {
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px solid lightpink;
+}
+.capsule  + .capsule {
+  border-top: none;
+}
+.capsule:first-of-type {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+.capsule:last-of-type {
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+@media (min-width: 800px) {
+  header,
+  main {
+    overflow: hidden;
+  }
+  main section,
+  main aside {
+    float: left;
+    width: 40%;
+  }
+  main section {
+    width: 60%;
+    padding-right: 0;
+  }
+  header h1 {
+    float: left;
+  }
+  header nav {
+    float: right;
+  }
+}
+</style>
